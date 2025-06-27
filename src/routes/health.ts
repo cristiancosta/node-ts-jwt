@@ -1,29 +1,36 @@
 import { Router } from 'express';
+import { DataSource } from 'typeorm';
 
 // Controllers.
-import healthController from '../controllers/health';
+import controller from '../controllers/health';
 
-const router = Router();
+const healthRoutes = (dataSource: DataSource) => {
+  const router = Router();
 
-/**
- * @swagger
- * /health:
- *  get:
- *    summary: Health information
- *    description: API and database health information
- *    tags:
- *      - Health
- *    responses:
- *      200:
- *        description: API and database health information
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/HealthResponse'
- */
-router.get('/', healthController.getHealthInfo);
+  const healthController = controller(dataSource);
 
-export default router;
+  /**
+   * @swagger
+   * /health:
+   *  get:
+   *    summary: Health information
+   *    description: API and database health information
+   *    tags:
+   *      - Health
+   *    responses:
+   *      200:
+   *        description: API and database health information
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/HealthResponse'
+   */
+  router.get('/', healthController.getHealthInfo);
+
+  return router;
+};
+
+export default healthRoutes;
 
 /**
  * @swagger

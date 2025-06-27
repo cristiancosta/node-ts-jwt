@@ -1,10 +1,15 @@
 import { Router } from 'express';
+import { DataSource } from 'typeorm';
 
 // Routes.
-import healthRoute from './health';
+import healthRoutes from './health';
 
-const router = Router();
+const routes = (dataSource: DataSource) => {
+  const router = Router();
 
-router.use('/health', healthRoute);
+  router.use('/health', healthRoutes(dataSource));
 
-export default router;
+  return router;
+};
+
+export default routes;

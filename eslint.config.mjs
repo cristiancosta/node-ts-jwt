@@ -18,5 +18,10 @@ export default defineConfig([
     }
   },
   pluginJs.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked
+  ...tseslint.configs.recommendedTypeChecked,
+  {
+    rules: {
+      '@typescript-eslint/no-misused-promises': 'off'
+    }
+  }
 ]);
