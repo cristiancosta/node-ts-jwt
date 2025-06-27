@@ -41,7 +41,7 @@
     "@testcontainers/mysql": "^11.0.3",
     "@types/express": "^4.17.21",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.0.4",
+    "@types/node": "^24.0.6",
     "@types/supertest": "^6.0.3",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
