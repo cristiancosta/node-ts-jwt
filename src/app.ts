@@ -7,14 +7,22 @@ import { DataSource } from 'typeorm';
 // Routes.
 import routes from './routes';
 
+// Middlewares.
+import { swaggerBasicAuth } from './middlewares';
+
 // Swagger.
-import swaggerSpecification from './swagger';
+import swaggerDoc from './swagger';
 
 const createExpressApp = (dataSource: DataSource) => {
   const app = express();
 
   app.use(bodyParser.json());
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecification));
+  app.use(
+    '/api-docs',
+    swaggerBasicAuth,
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDoc)
+  );
   app.use('/', routes(dataSource));
 
   return app;

@@ -13,7 +13,7 @@ export default defineConfig([
       globals: globals.browser,
       parser: tseslint.parser,
       parserOptions: {
-        project: './tsconfig.json'
+        project: './tsconfig.eslint.json'
       }
     }
   },

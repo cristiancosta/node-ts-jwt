@@ -2,25 +2,25 @@ import request from 'supertest';
 
 // Types.
 import { TestContext } from './types/setup';
+import { HealthResponse } from '../../src/types/health';
 
 // Setup.
 import { buildResources, teardownResources } from './setup';
 
 // Constants.
 import { httpStatusCode } from '../../src/constants';
-import { HealthResponse } from '../../src/types/health';
-
-jest.setTimeout(30_000);
 
 describe('Health', () => {
   let context: TestContext;
 
   beforeAll(async () => {
     context = await buildResources();
-  });
+  }, 60_000);
 
   afterAll(async () => {
-    await teardownResources(context);
+    if (context) {
+      await teardownResources(context);
+    }
   });
 
   describe('GET /health', () => {

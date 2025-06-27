@@ -14,6 +14,10 @@ const configuration: AppConfiguration = {
   },
   server: {
     port: parseInt(process.env.SERVER_PORT ?? '8080', 10)
+  },
+  swagger: {
+    username: process.env.SWAGGER_USERNAME || 'admin',
+    password: process.env.SWAGGER_PASSWORD || 'admin'
   }
 };
 

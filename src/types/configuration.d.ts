@@ -1,6 +1,7 @@
 export type AppConfiguration = {
   db: DataSourceConfiguration;
   server: ServerConfiguration;
+  swagger: SwaggerConfiguration;
 };
 
 export type DataSourceConfiguration = {
@@ -13,4 +14,9 @@ export type DataSourceConfiguration = {
 
 export type ServerConfiguration = {
   port: number;
+};
+
+export type SwaggerConfiguration = {
+  username: string;
+  password: string;
 };
