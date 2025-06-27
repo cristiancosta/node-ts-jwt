@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
+import { DataSource } from 'typeorm';
 
 // Routes.
 import routes from './routes';
@@ -8,7 +9,8 @@ import routes from './routes';
 // Swagger.
 import swaggerSpecification from './swagger';
 
-const createExpressApp = () => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const createExpressApp = (dataSource: DataSource) => {
   const app = express();
 
   app.use(bodyParser.json());
