@@ -1,4 +1,5 @@
 // Middlewares.
+import errorHandler from './error-handler';
 import swaggerBasicAuth from './swagger-basic-auth';
 
-export { swaggerBasicAuth };
+export { errorHandler, swaggerBasicAuth };

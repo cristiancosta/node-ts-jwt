@@ -8,7 +8,7 @@ import { DataSource } from 'typeorm';
 import routes from './routes';
 
 // Middlewares.
-import { swaggerBasicAuth } from './middlewares';
+import { errorHandler, swaggerBasicAuth } from './middlewares';
 
 // Swagger.
 import swaggerDoc from './swagger';
@@ -24,6 +24,7 @@ const createExpressApp = (dataSource: DataSource) => {
     swaggerUi.setup(swaggerDoc)
   );
   app.use('/', routes(dataSource));
+  app.use(errorHandler);
 
   return app;
 };

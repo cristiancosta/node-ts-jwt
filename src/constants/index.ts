@@ -1,4 +1,5 @@
 // Constants.
+import errorMessage from './error-message';
 import httpStatusCode from './http-status-code';
 
-export { httpStatusCode };
+export { errorMessage, httpStatusCode };

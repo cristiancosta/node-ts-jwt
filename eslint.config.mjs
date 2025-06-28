@@ -21,6 +21,10 @@ export default defineConfig([
   ...tseslint.configs.recommendedTypeChecked,
   {
     rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' }
+      ],
       '@typescript-eslint/no-misused-promises': 'off'
     }
   }
