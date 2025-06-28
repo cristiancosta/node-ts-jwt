@@ -1,5 +1,6 @@
 export type AppConfiguration = {
   db: DataSourceConfiguration;
+  jwt: JwtConfiguration;
   server: ServerConfiguration;
   swagger: SwaggerConfiguration;
 };
@@ -10,6 +11,12 @@ export type DataSourceConfiguration = {
   username: string;
   password: string;
   database: string;
+};
+
+export type JwtConfiguration = {
+  secret: string;
+  accessTokenDuration: string;
+  refreshTokenDuration: string;
 };
 
 export type ServerConfiguration = {

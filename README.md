@@ -29,7 +29,7 @@ SWAGGER_USERNAME=admin
 SWAGGER_PASSWORD=admin
 ```
 
-Make sure you have a PostgreSQL database up and running. In my case, I use Docker since it's the easiest way:
+Make sure you have a MySQL database up and running. In my case, I use Docker since it's the easiest way:
 
 ```bash
 $ docker run -p 3306:3306 -e MYSQL_ROOT_USER=root -e MYSQL_ROOT_PASSWORD=root -d mysql
