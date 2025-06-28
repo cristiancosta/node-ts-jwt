@@ -2,7 +2,6 @@ import {
   verify,
   TokenExpiredError,
   JsonWebTokenError,
-  VerifyOptions,
   JwtPayload
 } from 'jsonwebtoken';
 
@@ -13,15 +12,11 @@ import { errorMessage } from '../constants';
 import configuration from '../configuration';
 
 // Errors.
-import { UnauthorizedError } from '../errors/unauthorized';
 import { InternalServerError } from '../errors/internal-server';
+import { UnauthorizedError } from '../errors/unauthorized';
 
-type VerifyJwtOptions = Omit<
-  VerifyOptions,
-  'algorithms' | 'complete' | 'subject'
-> & {
-  subject: 'REFRESH_TOKEN' | 'ACCESS_TOKEN';
-};
+// Types.
+import { VerifyJwtOptions } from '../types/jwt';
 
 export const verifyJwt = (token: string, options: VerifyJwtOptions) => {
   let payload: JwtPayload;
