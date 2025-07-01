@@ -6,10 +6,10 @@ import {
 } from 'jsonwebtoken';
 
 // Constants.
-import { errorMessage } from '../constants';
+import { errorMessage } from '../constants/error-message';
 
 // Configuration.
-import configuration from '../configuration';
+import { configuration } from '../configuration';
 
 // Errors.
 import { InternalServerError } from '../errors/internal-server';

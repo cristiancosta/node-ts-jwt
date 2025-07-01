@@ -1,7 +1,7 @@
 export type UserRepository = {
   getUserById: (id: number) => Promise<UserDto | null>;
   getUserByUsername: (username: string) => Promise<UserDto | null>;
-  createUser: (dto: CreateUserDto) => UserDto;
+  createUser: (dto: CreateUserDto) => Promise<UserDto>;
 };
 
 export type CreateUserDto = {

@@ -8,7 +8,7 @@ import { HealthResponse } from '../../src/types/health';
 import { buildResources, teardownResources } from './setup';
 
 // Constants.
-import { httpStatusCode } from '../../src/constants';
+import { httpStatusCode } from '../../src/constants/http-status-code';
 
 describe('Health', () => {
   let context: TestContext;

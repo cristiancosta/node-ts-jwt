@@ -1,10 +1,10 @@
 import { MySqlContainer } from '@testcontainers/mysql';
 
 // App.
-import createExpressApp from '../../src/app';
+import { createExpressApp } from '../../src/app';
 
 // DataSource.
-import createDataSource from '../../src/data-source';
+import { createDataSource } from '../../src/data-source';
 
 // Types.
 import { TestContext } from './types/setup';

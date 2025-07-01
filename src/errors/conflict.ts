@@ -1,5 +1,5 @@
 // Constants.
-import { httpStatusCode } from '../constants';
+import { httpStatusCode } from '../constants/http-status-code';
 
 // Errors.
 import { BaseError } from './base';

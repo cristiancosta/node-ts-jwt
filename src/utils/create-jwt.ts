@@ -1,10 +1,10 @@
 import { sign, SignOptions } from 'jsonwebtoken';
 
 // Constants.
-import { errorMessage } from '../constants';
+import { errorMessage } from '../constants/error-message';
 
 // Configuration.
-import configuration from '../configuration';
+import { configuration } from '../configuration';
 
 // Errors.
 import { ConflictError } from '../errors/conflict';

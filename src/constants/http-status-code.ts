@@ -1,4 +1,4 @@
-const httpStatusCode = {
+export const httpStatusCode = {
   OK: 200,
 
   BAD_REQUEST: 400,
@@ -8,5 +8,3 @@ const httpStatusCode = {
 
   INTERNAL_SERVER_ERROR: 500
 };
-
-export default httpStatusCode;

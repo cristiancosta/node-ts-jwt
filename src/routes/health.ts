@@ -2,12 +2,12 @@ import { Router } from 'express';
 import { DataSource } from 'typeorm';
 
 // Controllers.
-import controller from '../controllers/health';
+import { healthController } from '../controllers/health';
 
-const healthRoutes = (dataSource: DataSource) => {
+export const healthRoutes = (dataSource: DataSource) => {
   const router = Router();
 
-  const healthController = controller(dataSource);
+  const controller = healthController(dataSource);
 
   /**
    * @swagger
@@ -25,12 +25,10 @@ const healthRoutes = (dataSource: DataSource) => {
    *            schema:
    *              $ref: '#/components/schemas/HealthResponse'
    */
-  router.get('/', healthController.getHealthInfo);
+  router.get('/', controller.getHealthInfo);
 
   return router;
 };
-
-export default healthRoutes;
 
 /**
  * @swagger

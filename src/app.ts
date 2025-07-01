@@ -5,15 +5,16 @@ import swaggerUi from 'swagger-ui-express';
 import { DataSource } from 'typeorm';
 
 // Routes.
-import routes from './routes';
+import { routes } from './routes';
 
 // Middlewares.
-import { errorHandler, swaggerBasicAuth } from './middlewares';
+import { errorHandler } from './middlewares/error-handler';
+import { swaggerBasicAuth } from './middlewares/swagger-basic-auth';
 
 // Swagger.
-import swaggerDoc from './swagger';
+import { swaggerDoc } from './swagger';
 
-const createExpressApp = (dataSource: DataSource) => {
+export const createExpressApp = (dataSource: DataSource) => {
   const app = express();
 
   app.use(bodyParser.json());
@@ -28,5 +29,3 @@ const createExpressApp = (dataSource: DataSource) => {
 
   return app;
 };
-
-export default createExpressApp;

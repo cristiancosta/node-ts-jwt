@@ -1,4 +1,4 @@
-const errorMessage = {
+export const errorMessage = {
   INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR',
   TOKEN_EXPIRED: 'TOKEN_EXPIRED',
   INVALID_TOKEN: 'INVALID_TOKEN',
@@ -7,5 +7,3 @@ const errorMessage = {
   USER_ALREADY_EXIST: 'USER_ALREADY_EXIST',
   USER_CREATION_FAILURE: 'USER_CREATION_FAILURE'
 };
-
-export default errorMessage;
