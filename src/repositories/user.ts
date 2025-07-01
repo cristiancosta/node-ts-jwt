@@ -1,10 +1,18 @@
 import { DataSource, Like } from 'typeorm';
-import { errorMessage } from '../constants';
+
+// Constants.
+import { errorMessage } from '../constants/error-message';
+
+// Errors.
 import { InternalServerError } from '../errors/internal-server';
+
+// Models.
 import { User } from '../models/user';
+
+// Types.
 import { UserRepository, UserDto, CreateUserDto } from '../types/user';
 
-const userRepository = (dataSource: DataSource): UserRepository => {
+export const userRepository = (dataSource: DataSource): UserRepository => {
   const repository = dataSource.getRepository(User);
 
   const getUserByUsername = async (username: string) => {
@@ -19,6 +27,7 @@ const userRepository = (dataSource: DataSource): UserRepository => {
       throw new InternalServerError(errorMessage.USER_RETRIEVAL_FAILURE);
     }
   };
+
   const getUserById = async (id: number) => {
     try {
       const user = await repository.findOne({ where: { id } });
@@ -29,16 +38,18 @@ const userRepository = (dataSource: DataSource): UserRepository => {
       throw new InternalServerError(errorMessage.USER_RETRIEVAL_FAILURE);
     }
   };
-  const createUser = (dto: CreateUserDto) => {
+
+  const createUser = async (dto: CreateUserDto) => {
     try {
       const { username, password } = dto;
-      const user = repository.create({ username, password });
+      const user = await repository.save({ username, password });
       return mapUserModelToUserDto(user);
     } catch (error) {
       console.error('createUser#error', error);
       throw new InternalServerError(errorMessage.USER_CREATION_FAILURE);
     }
   };
+
   const mapUserModelToUserDto = (userModel: User) => {
     const userDto: UserDto = {
       id: userModel.id,
@@ -50,11 +61,10 @@ const userRepository = (dataSource: DataSource): UserRepository => {
     };
     return userDto;
   };
+
   return {
     getUserByUsername,
     getUserById,
     createUser
   };
 };
-
-export default userRepository;

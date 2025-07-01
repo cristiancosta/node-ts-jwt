@@ -4,7 +4,7 @@ import { config } from 'dotenv';
 import { AppConfiguration } from './types/configuration';
 
 config();
-const configuration: AppConfiguration = {
+export const configuration: AppConfiguration = {
   db: {
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT ?? '3306', 10),
@@ -25,5 +25,3 @@ const configuration: AppConfiguration = {
     password: process.env.SWAGGER_PASSWORD || 'admin'
   }
 };
-
-export default configuration;

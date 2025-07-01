@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 
 // Constants.
-import { errorMessage, httpStatusCode } from '../constants';
+import { errorMessage } from '../constants/error-message';
+import { httpStatusCode } from '../constants/http-status-code';
 
 // Errors.
 import { BaseError } from '../errors/base';
 
-const errorHandler = (
+export const errorHandler = (
   error: Error,
   _req: Request,
   res: Response,
@@ -22,5 +23,3 @@ const errorHandler = (
       .send({ message: errorMessage.INTERNAL_SERVER_ERROR });
   }
 };
-
-export default errorHandler;

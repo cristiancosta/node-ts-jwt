@@ -1,7 +1,7 @@
 import { JsonWebTokenError, TokenExpiredError, verify } from 'jsonwebtoken';
 
 // Configuration.
-import configuration from '../../../src/configuration';
+import { configuration } from '../../../src/configuration';
 
 // Errors.
 import { UnauthorizedError } from '../../../src/errors/unauthorized';

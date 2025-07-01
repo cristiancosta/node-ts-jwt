@@ -1,6 +1,6 @@
 import swaggerJSDoc from 'swagger-jsdoc';
 
-const swaggerDoc = swaggerJSDoc({
+export const swaggerDoc = swaggerJSDoc({
   failOnErrors: true,
   definition: {
     openapi: '3.0.0',
@@ -16,5 +16,3 @@ const swaggerDoc = swaggerJSDoc({
   },
   apis: [`${__dirname}/routes/**/**.ts`]
 });
-
-export default swaggerDoc;

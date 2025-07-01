@@ -1,11 +1,11 @@
 // App.
-import createExpressApp from './app';
+import { createExpressApp } from './app';
 
 // Configuration.
-import configuration from './configuration';
+import { configuration } from './configuration';
 
 // DataSource.
-import createDataSource from './data-source';
+import { createDataSource } from './data-source';
 
 const { db } = configuration;
 createDataSource(db)

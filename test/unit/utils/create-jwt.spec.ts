@@ -1,13 +1,13 @@
 import { sign } from 'jsonwebtoken';
 
 // Constants.
-import { errorMessage } from '../../../src/constants';
+import { errorMessage } from '../../../src/constants/error-message';
 
 // Errors.
 import { ConflictError } from '../../../src/errors/conflict';
 
 // Configuration.
-import configuration from '../../../src/configuration';
+import { configuration } from '../../../src/configuration';
 
 // Utils.
 import { createJwt } from '../../../src/utils/create-jwt';

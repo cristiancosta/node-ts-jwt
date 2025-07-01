@@ -1,10 +1,10 @@
 import { hashSync } from 'bcryptjs';
-import { errorMessage } from '../constants';
 import { ConflictError } from '../errors/conflict';
 import { SignUpDto } from '../types/auth';
 import { UserRepository } from '../types/user';
+import { errorMessage } from '../constants/error-message';
 
-const authService = (userRepository: UserRepository) => {
+export const authService = (userRepository: UserRepository) => {
   const signUp = async (signUpDto: SignUpDto) => {
     const { username, password } = signUpDto;
     const user = await userRepository.getUserByUsername(username.trim());
@@ -12,7 +12,7 @@ const authService = (userRepository: UserRepository) => {
       throw new ConflictError(errorMessage.USER_ALREADY_EXIST);
     }
     const hashedPassword = hashSync(password.trim());
-    const createdUser = userRepository.createUser({
+    const createdUser = await userRepository.createUser({
       username: username.trim(),
       password: hashedPassword
     });
@@ -23,9 +23,8 @@ const authService = (userRepository: UserRepository) => {
       updatedAt: createdUser.updatedAt
     };
   };
+
   return {
     signUp
   };
 };
-
-export default authService;

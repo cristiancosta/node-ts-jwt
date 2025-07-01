@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 // Types.
 import { HealthResponse } from '../types/health';
 
-const healthController = (dataSource: DataSource) => {
+export const healthController = (dataSource: DataSource) => {
   const getHealthInfo = async (req: Request, res: Response) => {
     const result: HealthResponse = {
       status: 'healthy',
@@ -27,5 +27,3 @@ const healthController = (dataSource: DataSource) => {
     getHealthInfo
   };
 };
-
-export default healthController;

@@ -7,7 +7,7 @@ import { DataSourceConfiguration } from './types/configuration';
 // Models.
 import { User } from './models/user';
 
-const createDataSource = (dbConfig: DataSourceConfiguration) => {
+export const createDataSource = (dbConfig: DataSourceConfiguration) => {
   const { database, username, password, host, port } = dbConfig;
   const dataSource = new DataSource({
     type: 'mysql',
@@ -22,5 +22,3 @@ const createDataSource = (dbConfig: DataSourceConfiguration) => {
   });
   return dataSource;
 };
-
-export default createDataSource;
