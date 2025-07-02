@@ -23,17 +23,15 @@ describe('Auth', () => {
   }, 60_000);
 
   afterAll(async () => {
-    if (context) {
-      await teardownResources(context);
-    }
+    await teardownResources(context);
   });
 
   describe('POST /auth/sign-up', () => {
     let userRepository: Repository<User>;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       userRepository = context.dataSource.getRepository(User);
-      userRepository.create({
+      await userRepository.save({
         id: 50,
         username: 'testuser',
         password: hashSync('Abcdef2!', 10)
