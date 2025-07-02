@@ -10,6 +10,8 @@ import { UserDto, UserRepository } from '../../../src/types/user';
 // Services.
 import { authService } from '../../../src/services/auth';
 
+jest.mock('bcryptjs');
+
 const hashSyncMock = hashSync as jest.Mock;
 
 describe('Auth', () => {

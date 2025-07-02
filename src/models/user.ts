@@ -8,16 +8,27 @@ import {
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({
+    type: 'int'
+  })
   id!: number;
 
-  @Column()
+  @Column({
+    unique: true,
+    type: 'varchar'
+  })
   username!: string;
 
-  @Column()
+  @Column({
+    type: 'varchar'
+  })
   password!: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+    default: null,
+    type: 'varchar'
+  })
   refresh_uuid!: string;
 
   @CreateDateColumn()
