@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
 import { DataSource } from 'typeorm';
+import { Request, Response } from 'express';
 
 // Services.
 import { authService } from '../services/auth';
@@ -7,7 +7,10 @@ import { authService } from '../services/auth';
 // Repositories.
 import { userRepository } from '../repositories/user';
 
-export const authController = (dataSource: DataSource) => {
+// Types.
+import { AuthController } from '../types/auth';
+
+export const authController = (dataSource: DataSource): AuthController => {
   const service = authService(userRepository(dataSource));
 
   const signUp = async (req: Request, res: Response) => {

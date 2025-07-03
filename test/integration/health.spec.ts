@@ -18,7 +18,9 @@ describe('Health', () => {
   }, 60_000);
 
   afterAll(async () => {
-    await teardownResources(context);
+    if (context) {
+      await teardownResources(context);
+    }
   });
 
   describe('GET /health', () => {

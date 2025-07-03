@@ -1,11 +1,17 @@
 import { hashSync } from 'bcryptjs';
-import { ConflictError } from '../errors/conflict';
-import { SignUpDto } from '../types/auth';
-import { UserRepository } from '../types/user';
+
+// Constants.
 import { errorMessage } from '../constants/error-message';
 
-export const authService = (userRepository: UserRepository) => {
-  const signUp = async (signUpDto: SignUpDto) => {
+// Errors.
+import { ConflictError } from '../errors/conflict';
+
+// Types.
+import { AuthService, SignUpInputDto } from '../types/auth';
+import { UserRepository } from '../types/user';
+
+export const authService = (userRepository: UserRepository): AuthService => {
+  const signUp = async (signUpDto: SignUpInputDto) => {
     const { username, password } = signUpDto;
     const user = await userRepository.getUserByUsername(username.trim());
     if (user) {
