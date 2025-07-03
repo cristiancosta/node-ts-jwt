@@ -7,22 +7,38 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug server",
-      "runtimeArgs": ["-r", "ts-node/register"],
-      "args": ["${workspaceFolder}/src/server.ts"],
+      "name": "Server debugger",
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+      "args": [
+        "${workspaceFolder}/src/server.ts"
+      ],
       "cwd": "${workspaceFolder}",
-      "skipFiles": ["<node_internals>/**"]
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug tests",
+      "name": "Tests debugger",
       "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
-      "args": ["--runInBand", "--config", "jest.config.ts"],
+      "args": [
+        "--runInBand",
+        "--config",
+        "jest.config.ts"
+      ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "skipFiles": ["<node_internals>/**"],
-      "runtimeArgs": ["-r", "ts-node/register"]
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ]
     }
   ]
 }

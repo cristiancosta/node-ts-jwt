@@ -1,7 +1,7 @@
 {
   "name": "node-ts-jwt",
   "version": "1.0.0",
-  "description": "Node ts JWT",
+  "description": "Node ts jwt",
   "scripts": {
     "start": "nodemon --exec ts-node src/server.ts",
     "test": "jest",
@@ -17,7 +17,9 @@
     "url": "git+https://github.com/cristiancosta/node-ts-jwt.git"
   },
   "keywords": [
-    "jwt"
+    "jwt",
+    "node",
+    "ts"
   ],
   "author": "Cristian Costa <cristiancosta1991@gmail.com>",
   "license": "MIT",
