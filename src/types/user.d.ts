@@ -2,6 +2,7 @@ export type UserRepository = {
   getUserById: (id: number) => Promise<UserDto | null>;
   getUserByUsername: (username: string) => Promise<UserDto | null>;
   createUser: (dto: CreateUserDto) => Promise<UserDto>;
+  updateRefreshUuid: (id: number, uuid: string) => Promise<void>;
 };
 
 export type CreateUserDto = {

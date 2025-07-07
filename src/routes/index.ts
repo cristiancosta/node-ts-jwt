@@ -13,3 +13,16 @@ export const routes = (dataSource: DataSource) => {
 
   return router;
 };
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     InternalServerErrorResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           description: Error message
+ *           example: INTERNAL_SERVER_ERROR
+ */

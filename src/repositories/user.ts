@@ -50,6 +50,15 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
     }
   };
 
+  const updateRefreshUuid = async (id: number, uuid: string) => {
+    try {
+      await repository.update(id, { refresh_uuid: uuid });
+    } catch (error) {
+      console.error('updateRefreshUuid#error', error);
+      throw new InternalServerError(errorMessage.USER_UPDATE_FAILURE);
+    }
+  };
+
   const mapUserModelToUserDto = (userModel: User) => {
     const userDto: UserDto = {
       id: userModel.id,
@@ -65,6 +74,7 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
   return {
     getUserByUsername,
     getUserById,
-    createUser
+    createUser,
+    updateRefreshUuid
   };
 };

@@ -13,6 +13,15 @@ import { AuthController } from '../types/auth';
 export const authController = (dataSource: DataSource): AuthController => {
   const service = authService(userRepository(dataSource));
 
+  const signIn = async (req: Request, res: Response) => {
+    const { username, password } = req.body as {
+      username: string;
+      password: string;
+    };
+    const result = await service.signIn({ username, password });
+    res.send(result);
+  };
+
   const signUp = async (req: Request, res: Response) => {
     const { username, password } = req.body as {
       username: string;
@@ -23,6 +32,7 @@ export const authController = (dataSource: DataSource): AuthController => {
   };
 
   return {
+    signIn,
     signUp
   };
 };

@@ -1,16 +1,42 @@
-import { hashSync } from 'bcryptjs';
+import { v4 as uuidv4 } from 'uuid';
+import { compareSync, hashSync } from 'bcryptjs';
 
 // Constants.
 import { errorMessage } from '../constants/error-message';
 
 // Errors.
+import { BadRequestError } from '../errors/bad-request';
 import { ConflictError } from '../errors/conflict';
+import { NotFoundError } from '../errors/not-found';
 
 // Types.
-import { AuthService, SignUpInputDto } from '../types/auth';
+import { AuthService, SignInInputDto, SignUpInputDto } from '../types/auth';
 import { UserRepository } from '../types/user';
 
+// Utils.
+import { createJwt } from '../utils/create-jwt';
+
 export const authService = (userRepository: UserRepository): AuthService => {
+  const signIn = async (signInDto: SignInInputDto) => {
+    const { username, password } = signInDto;
+    const user = await userRepository.getUserByUsername(username.trim());
+    if (!user) {
+      throw new NotFoundError(errorMessage.USER_NOT_FOUND);
+    }
+    const isValidPassword = compareSync(password.trim(), user.password);
+    if (!isValidPassword) {
+      throw new BadRequestError(errorMessage.INVALID_CREDENTIALS);
+    }
+    const accessToken = createJwt({ id: user.id }, { subject: 'ACCESS_TOKEN' });
+    const uuid = uuidv4();
+    const refreshToken = createJwt(
+      { id: user.id, uuid },
+      { subject: 'REFRESH_TOKEN' }
+    );
+    await userRepository.updateRefreshUuid(user.id, uuid);
+    return { accessToken, refreshToken };
+  };
+
   const signUp = async (signUpDto: SignUpInputDto) => {
     const { username, password } = signUpDto;
     const user = await userRepository.getUserByUsername(username.trim());
@@ -31,6 +57,7 @@ export const authService = (userRepository: UserRepository): AuthService => {
   };
 
   return {
+    signIn,
     signUp
   };
 };
