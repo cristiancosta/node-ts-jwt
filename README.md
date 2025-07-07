@@ -171,14 +171,14 @@ The project runs automated tests and perform building process on Node.js 18, 20 
 
 ## 🛠️ Useful Scripts
 
-| Command            | Description                              |
-|--------------------|------------------------------------------|
-| `npm start`        | Starts the server with Nodemon           |
-| `npm test`         | Runs all tests using Jest + Testcontainers |
-| `npm run lint`     | Lints the code using ESLint              |
-| `npm run lint:fix` | Lints and auto-fixes issues              |
-| `npm run format`   | Formats code with Prettier               |
-| `npm run build`    | Builds the project with tsc              |
+| Command            | Description                                                   |
+| ------------------ | ------------------------------------------------------------- |
+| `npm start`        | Starts the server with Nodemon                                |
+| `npm test`         | Runs all tests using Jest + Testcontainers                    |
+| `npm run lint`     | Lints the code using ESLint                                   |
+| `npm run lint:fix` | Lints and auto-fixes issues                                   |
+| `npm run format`   | Formats code with Prettier                                    |
+| `npm run build`    | Builds the project with tsc                                   |
 | `npm run serve`    | Starts the server with Node (previous build script execution) |
 
 ---
