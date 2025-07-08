@@ -59,7 +59,7 @@
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "supertest": "^7.1.2",
-    "testcontainers": "^11.0.3",
+    "testcontainers": "^11.2.1",
     "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
