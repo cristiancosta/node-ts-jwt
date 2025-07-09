@@ -10,14 +10,22 @@ import { ConflictError } from '../errors/conflict';
 import { NotFoundError } from '../errors/not-found';
 
 // Types.
-import { AuthService, SignInInputDto, SignUpInputDto } from '../types/auth';
+import {
+  AuthService,
+  SignInInputDto,
+  SignInOutputDto,
+  SignUpInputDto,
+  SignUpOutputDto
+} from '../types/auth';
 import { UserRepository } from '../types/user';
 
 // Utils.
 import { createJwt } from '../utils/create-jwt';
 
 export const authService = (userRepository: UserRepository): AuthService => {
-  const signIn = async (signInDto: SignInInputDto) => {
+  const signIn = async (
+    signInDto: SignInInputDto
+  ): Promise<SignInOutputDto> => {
     const { username, password } = signInDto;
     const user = await userRepository.getUserByUsername(username.trim());
     if (!user) {
@@ -37,7 +45,9 @@ export const authService = (userRepository: UserRepository): AuthService => {
     return { accessToken, refreshToken };
   };
 
-  const signUp = async (signUpDto: SignUpInputDto) => {
+  const signUp = async (
+    signUpDto: SignUpInputDto
+  ): Promise<SignUpOutputDto> => {
     const { username, password } = signUpDto;
     const user = await userRepository.getUserByUsername(username.trim());
     if (user) {

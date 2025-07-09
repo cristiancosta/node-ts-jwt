@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 import { HealthController, HealthResponse } from '../types/health';
 
 export const healthController = (dataSource: DataSource): HealthController => {
-  const getHealthInfo = async (req: Request, res: Response) => {
+  const getHealthInfo = async (req: Request, res: Response): Promise<void> => {
     const result: HealthResponse = {
       status: 'healthy',
       dependencies: {
