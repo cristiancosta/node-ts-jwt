@@ -12,12 +12,15 @@ import { configuration } from '../../../src/configuration';
 // Utils.
 import { createJwt } from '../../../src/utils/create-jwt';
 
+// Types.
+import { CreateJwtPayload } from '../../../src/types/jwt';
+
 jest.mock('jsonwebtoken');
 
 const signMock = sign as jest.Mock;
 
 describe('createJwt', () => {
-  const payload = { id: 123 };
+  const payload: CreateJwtPayload = { id: 123 };
   const secret = 'testsecret';
   const accessTokenDuration = '15m';
   const refreshTokenDuration = '7d';
