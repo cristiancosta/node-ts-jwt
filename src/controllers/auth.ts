@@ -13,7 +13,7 @@ import { AuthController } from '../types/auth';
 export const authController = (dataSource: DataSource): AuthController => {
   const service = authService(userRepository(dataSource));
 
-  const signIn = async (req: Request, res: Response) => {
+  const signIn = async (req: Request, res: Response): Promise<void> => {
     const { username, password } = req.body as {
       username: string;
       password: string;
@@ -22,7 +22,7 @@ export const authController = (dataSource: DataSource): AuthController => {
     res.send(result);
   };
 
-  const signUp = async (req: Request, res: Response) => {
+  const signUp = async (req: Request, res: Response): Promise<void> => {
     const { username, password } = req.body as {
       username: string;
       password: string;

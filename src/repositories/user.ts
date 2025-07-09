@@ -15,7 +15,9 @@ import { UserRepository, UserDto, CreateUserDto } from '../types/user';
 export const userRepository = (dataSource: DataSource): UserRepository => {
   const repository = dataSource.getRepository(User);
 
-  const getUserByUsername = async (username: string) => {
+  const getUserByUsername = async (
+    username: string
+  ): Promise<UserDto | null> => {
     try {
       const user = await repository.findOne({
         where: { username: Like(username) }
@@ -28,7 +30,7 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
     }
   };
 
-  const getUserById = async (id: number) => {
+  const getUserById = async (id: number): Promise<UserDto | null> => {
     try {
       const user = await repository.findOne({ where: { id } });
       const result = user ? mapUserModelToUserDto(user) : null;
@@ -39,7 +41,7 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
     }
   };
 
-  const createUser = async (dto: CreateUserDto) => {
+  const createUser = async (dto: CreateUserDto): Promise<UserDto> => {
     try {
       const { username, password } = dto;
       const user = await repository.save({ username, password });
@@ -50,7 +52,7 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
     }
   };
 
-  const updateRefreshUuid = async (id: number, uuid: string) => {
+  const updateRefreshUuid = async (id: number, uuid: string): Promise<void> => {
     try {
       await repository.update(id, { refresh_uuid: uuid });
     } catch (error) {
@@ -59,7 +61,7 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
     }
   };
 
-  const mapUserModelToUserDto = (userModel: User) => {
+  const mapUserModelToUserDto = (userModel: User): UserDto => {
     const userDto: UserDto = {
       id: userModel.id,
       username: userModel.username,
