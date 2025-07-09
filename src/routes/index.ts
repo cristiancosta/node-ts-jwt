@@ -4,12 +4,14 @@ import { DataSource } from 'typeorm';
 // Routes.
 import { authRoutes } from './auth';
 import { healthRoutes } from './health';
+import { userRoutes } from './user';
 
 export const routes = (dataSource: DataSource) => {
   const router = Router();
 
   router.use('/auth', authRoutes(dataSource));
   router.use('/health', healthRoutes(dataSource));
+  router.use('/user', userRoutes(dataSource));
 
   return router;
 };
