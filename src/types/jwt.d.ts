@@ -13,3 +13,8 @@ export type CreateJwtOptions = Omit<
 > & {
   subject: 'REFRESH_TOKEN' | 'ACCESS_TOKEN';
 };
+
+export type CreateJwtPayload = {
+  id?: number;
+  uuid?: string;
+};

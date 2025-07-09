@@ -10,9 +10,12 @@ import { configuration } from '../configuration';
 import { ConflictError } from '../errors/conflict';
 
 // Types.
-import { CreateJwtOptions } from '../types/jwt';
+import { CreateJwtOptions, CreateJwtPayload } from '../types/jwt';
 
-export const createJwt = (payload: object, options: CreateJwtOptions) => {
+export const createJwt = (
+  payload: CreateJwtPayload,
+  options: CreateJwtOptions
+) => {
   const { subject } = options;
   const { secret, accessTokenDuration, refreshTokenDuration } =
     configuration.jwt;
