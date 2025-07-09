@@ -6,7 +6,7 @@ import { authRoutes } from './auth';
 import { healthRoutes } from './health';
 import { userRoutes } from './user';
 
-export const routes = (dataSource: DataSource) => {
+export const routes = (dataSource: DataSource): Router => {
   const router = Router();
 
   router.use('/auth', authRoutes(dataSource));

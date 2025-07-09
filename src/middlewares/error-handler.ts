@@ -12,7 +12,7 @@ export const errorHandler = (
   _req: Request,
   res: Response,
   _next: NextFunction
-) => {
+): void => {
   if (error instanceof BaseError) {
     res
       .status(error.httpCode)

@@ -15,7 +15,7 @@ import { CreateJwtOptions, CreateJwtPayload } from '../types/jwt';
 export const createJwt = (
   payload: CreateJwtPayload,
   options: CreateJwtOptions
-) => {
+): string => {
   const { subject } = options;
   const { secret, accessTokenDuration, refreshTokenDuration } =
     configuration.jwt;

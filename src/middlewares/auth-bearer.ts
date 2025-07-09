@@ -10,7 +10,11 @@ import { UnauthorizedError } from '../errors/unauthorized';
 // Utils.
 import { verifyJwt } from '../utils/verify-jwt';
 
-export const authBearer = (req: Request, res: Response, next: NextFunction) => {
+export const authBearer = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
   const authorization = req.headers.authorization;
   if (authorization === undefined) {
     throw new UnauthorizedError(errorMessage.MISSING_AUTHORIZATION_HEADER);

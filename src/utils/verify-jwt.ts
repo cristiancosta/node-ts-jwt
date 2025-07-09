@@ -18,7 +18,10 @@ import { UnauthorizedError } from '../errors/unauthorized';
 // Types.
 import { VerifyJwtOptions } from '../types/jwt';
 
-export const verifyJwt = (token: string, options: VerifyJwtOptions) => {
+export const verifyJwt = (
+  token: string,
+  options: VerifyJwtOptions
+): JwtPayload => {
   let payload: JwtPayload;
   try {
     const { secret } = configuration.jwt;

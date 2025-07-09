@@ -4,7 +4,7 @@ import { DataSource } from 'typeorm';
 // Controllers.
 import { healthController } from '../controllers/health';
 
-export const healthRoutes = (dataSource: DataSource) => {
+export const healthRoutes = (dataSource: DataSource): Router => {
   const router = Router();
 
   const controller = healthController(dataSource);

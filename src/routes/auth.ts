@@ -4,7 +4,7 @@ import { DataSource } from 'typeorm';
 // Controllers.
 import { authController } from '../controllers/auth';
 
-export const authRoutes = (dataSource: DataSource) => {
+export const authRoutes = (dataSource: DataSource): Router => {
   const router = Router();
 
   const controller = authController(dataSource);
