@@ -109,6 +109,48 @@ export const authRoutes = (dataSource: DataSource): Router => {
    */
   router.post('/sign-up', controller.signUp);
 
+  /**
+   * @swagger
+   * /auth/refresh:
+   *  post:
+   *    summary: Refresh user tokens
+   *    description: Refresh user tokens
+   *    tags:
+   *      - Authentication
+   *    requestBody:
+   *      content:
+   *        application/json:
+   *          schema:
+   *            type: object
+   *            properties:
+   *              refreshToken:
+   *                type: string
+   *                description: Refresh token
+   *            required:
+   *              - refreshToken
+   *    responses:
+   *      200:
+   *        description: New access and refresh tokens
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/SignInResponse'
+   *      401:
+   *        description: Unauthorized
+   *        content:
+   *          application/json:
+   *            schema:
+   *              oneOf:
+   *                - $ref: '#/components/schemas/InvalidTokenResponse'
+   *                - $ref: '#/components/schemas/TokenExpiredResponse'
+   *                - $ref: '#/components/schemas/InvalidUserTokenResponse'
+   *      500:
+   *        description: Internal server error
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/InternalServerErrorResponse'
+   */
   router.post('/refresh', controller.refresh);
 
   return router;
@@ -160,4 +202,11 @@ export const authRoutes = (dataSource: DataSource): Router => {
  *          type: string
  *          description: Error message
  *          example: USER_ALREADY_EXIST
+ *    InvalidUserTokenResponse:
+ *      type: object
+ *      properties:
+ *        message:
+ *          type: string
+ *          description: Error message
+ *          example: INVALID_USER_TOKEN
  */
