@@ -8,10 +8,12 @@ import { errorMessage } from '../constants/error-message';
 import { BadRequestError } from '../errors/bad-request';
 import { ConflictError } from '../errors/conflict';
 import { NotFoundError } from '../errors/not-found';
+import { UnauthorizedError } from '../errors/unauthorized';
 
 // Types.
 import {
   AuthService,
+  RefreshInputDto,
   SignInInputDto,
   SignInOutputDto,
   SignUpInputDto,
@@ -21,6 +23,7 @@ import { UserRepository } from '../types/user';
 
 // Utils.
 import { createJwt } from '../utils/create-jwt';
+import { verifyJwt } from '../utils/verify-jwt';
 
 export const authService = (userRepository: UserRepository): AuthService => {
   const signIn = async (
@@ -66,8 +69,31 @@ export const authService = (userRepository: UserRepository): AuthService => {
     };
   };
 
+  const refresh = async (
+    refreshDto: RefreshInputDto
+  ): Promise<SignInOutputDto> => {
+    const { refreshToken } = refreshDto;
+    const { id, uuid } = verifyJwt(refreshToken, { subject: 'REFRESH_TOKEN' });
+    const user = await userRepository.getUserByIdAndRefreshUuid(id, uuid!);
+    if (!user) {
+      throw new UnauthorizedError(errorMessage.INVALID_USER_TOKEN);
+    }
+    const newAccessToken = createJwt(
+      { id: user.id },
+      { subject: 'ACCESS_TOKEN' }
+    );
+    const newUuid = uuidv4();
+    const newRefreshToken = createJwt(
+      { id: user.id, uuid },
+      { subject: 'REFRESH_TOKEN' }
+    );
+    await userRepository.updateRefreshUuid(user.id, newUuid);
+    return { accessToken: newAccessToken, refreshToken: newRefreshToken };
+  };
+
   return {
     signIn,
-    signUp
+    signUp,
+    refresh
   };
 };

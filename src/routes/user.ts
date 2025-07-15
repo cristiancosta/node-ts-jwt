@@ -42,7 +42,6 @@ export const userRoutes = (dataSource: DataSource): Router => {
    *            schema:
    *              oneOf:
    *                - $ref: '#/components/schemas/InvalidTokenResponse'
-   *                - $ref: '#/components/schemas/InvalidTokenSubjectResponse'
    *                - $ref: '#/components/schemas/TokenExpiredResponse'
    *                - $ref: '#/components/schemas/MissingAuthorizationHeaderResponse'
    *                - $ref: '#/components/schemas/MissingAuthorizationHeaderValueResponse'

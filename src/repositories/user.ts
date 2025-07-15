@@ -52,6 +52,22 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
     }
   };
 
+  const getUserByIdAndRefreshUuid = async (
+    id: number,
+    uuid: string
+  ): Promise<UserDto | null> => {
+    try {
+      const user = await repository.findOne({
+        where: { id, refresh_uuid: uuid }
+      });
+      const result = user ? mapUserModelToUserDto(user) : null;
+      return result;
+    } catch (error) {
+      console.error('getUserByIdAndRefreshUuid#error', error);
+      throw new InternalServerError(errorMessage.USER_RETRIEVAL_FAILURE);
+    }
+  };
+
   const updateRefreshUuid = async (id: number, uuid: string): Promise<void> => {
     try {
       await repository.update(id, { refresh_uuid: uuid });
@@ -77,6 +93,7 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
     getUserByUsername,
     getUserById,
     createUser,
-    updateRefreshUuid
+    updateRefreshUuid,
+    getUserByIdAndRefreshUuid
   };
 };

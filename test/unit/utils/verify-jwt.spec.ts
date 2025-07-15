@@ -38,15 +38,6 @@ describe('verifyJwt', () => {
     });
   });
 
-  it('Should throw UnauthorizedError if subject does not match', () => {
-    const payload = { id: 1, sub: 'REFRESH_TOKEN' };
-    verifyMock.mockReturnValue(payload);
-
-    expect(() => verifyJwt(token, { subject: expectedSubject })).toThrow(
-      UnauthorizedError
-    );
-  });
-
   it('Should throw UnauthorizedError if token is expired', () => {
     const error = new TokenExpiredError('jwt expired', new Date());
     verifyMock.mockImplementation(() => {

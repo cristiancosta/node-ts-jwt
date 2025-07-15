@@ -109,6 +109,8 @@ export const authRoutes = (dataSource: DataSource): Router => {
    */
   router.post('/sign-up', controller.signUp);
 
+  router.post('/refresh', controller.refresh);
+
   return router;
 };
 

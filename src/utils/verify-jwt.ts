@@ -1,9 +1,4 @@
-import {
-  verify,
-  TokenExpiredError,
-  JsonWebTokenError,
-  JwtPayload
-} from 'jsonwebtoken';
+import { verify, TokenExpiredError, JsonWebTokenError } from 'jsonwebtoken';
 
 // Constants.
 import { errorMessage } from '../constants/error-message';
@@ -16,20 +11,20 @@ import { InternalServerError } from '../errors/internal-server';
 import { UnauthorizedError } from '../errors/unauthorized';
 
 // Types.
-import { VerifyJwtOptions } from '../types/jwt';
+import { VerifyJwtOptions, VerifyJwtPayload } from '../types/jwt';
 
 export const verifyJwt = (
   token: string,
   options: VerifyJwtOptions
-): JwtPayload => {
-  let payload: JwtPayload;
+): VerifyJwtPayload => {
+  let payload: VerifyJwtPayload;
   try {
     const { secret } = configuration.jwt;
     payload = verify(token, secret, {
       ...options,
       algorithms: ['HS512'],
       complete: false
-    }) as JwtPayload;
+    }) as VerifyJwtPayload;
   } catch (error: unknown) {
     if (error instanceof TokenExpiredError) {
       throw new UnauthorizedError(errorMessage.TOKEN_EXPIRED);
@@ -39,9 +34,6 @@ export const verifyJwt = (
       console.error('verifyJwt#error', error);
       throw new InternalServerError(errorMessage.INTERNAL_SERVER_ERROR);
     }
-  }
-  if (payload.sub !== options.subject) {
-    throw new UnauthorizedError(errorMessage.INVALID_TOKEN_SUBJECT);
   }
   return payload;
 };

@@ -1,4 +1,4 @@
-import { SignOptions, VerifyOptions } from 'jsonwebtoken';
+import { SignOptions, VerifyOptions, JwtPayload } from 'jsonwebtoken';
 
 export type VerifyJwtOptions = Omit<
   VerifyOptions,
@@ -15,6 +15,11 @@ export type CreateJwtOptions = Omit<
 };
 
 export type CreateJwtPayload = {
-  id?: number;
+  id: number;
   uuid?: string;
 };
+
+export interface VerifyJwtPayload extends JwtPayload {
+  id: number;
+  uuid?: string;
+}

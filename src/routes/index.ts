@@ -51,13 +51,6 @@ export const routes = (dataSource: DataSource): Router => {
  *           type: string
  *           description: Error message
  *           example: INVALID_TOKEN
- *     InvalidTokenSubjectResponse:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           description: Error message
- *           example: INVALID_TOKEN_SUBJECT
  *     InvalidAuthorizationPrefixResponse:
  *       type: object
  *       properties:

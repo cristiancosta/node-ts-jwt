@@ -5,6 +5,7 @@ import { compareSync, hashSync } from 'bcryptjs';
 import { BadRequestError } from '../../../src/errors/bad-request';
 import { ConflictError } from '../../../src/errors/conflict';
 import { NotFoundError } from '../../../src/errors/not-found';
+import { UnauthorizedError } from '../../../src/errors/unauthorized';
 
 // Types
 import { AuthService } from '../../../src/types/auth';
@@ -16,15 +17,18 @@ import { authService } from '../../../src/services/auth';
 
 // Utils.
 import { createJwt } from '../../../src/utils/create-jwt';
+import { verifyJwt } from '../../../src/utils/verify-jwt';
 
 jest.mock('uuid');
 jest.mock('bcryptjs');
 jest.mock('../../../src/utils/create-jwt');
+jest.mock('../../../src/utils/verify-jwt');
 
 const hashSyncMock = hashSync as jest.Mock;
 const compareSyncMock = compareSync as jest.Mock;
 const createJwtMock = createJwt as jest.Mock;
 const uuidv4Mock = uuidv4 as jest.Mock;
+const verifyJwtMock = verifyJwt as jest.Mock;
 
 describe('Auth', () => {
   let service: AuthService;
@@ -35,7 +39,8 @@ describe('Auth', () => {
       getUserById: jest.fn(),
       getUserByUsername: jest.fn(),
       createUser: jest.fn(),
-      updateRefreshUuid: jest.fn()
+      updateRefreshUuid: jest.fn(),
+      getUserByIdAndRefreshUuid: jest.fn()
     };
     service = authService(userRepository);
   });
@@ -131,6 +136,45 @@ describe('Auth', () => {
         username: 'user',
         password: 'hashed'
       });
+    });
+  });
+
+  describe('refresh', () => {
+    it('Should throw UnauthorizedError if token is invalid or user not found', async () => {
+      verifyJwtMock.mockReturnValue({ id: 1, uuid: 'uuid' });
+      userRepository.getUserByIdAndRefreshUuid.mockResolvedValue(null);
+      await expect(service.refresh({ refreshToken: 'token' })).rejects.toThrow(
+        UnauthorizedError
+      );
+    });
+
+    it('Should return new tokens and update uuid', async () => {
+      verifyJwtMock.mockReturnValue({ id: 1, uuid: 'old-uuid' });
+      const createdUser = {
+        password: 'password',
+        refreshUuid: 'new-uuid',
+        id: 1,
+        username: 'user',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      userRepository.getUserByIdAndRefreshUuid.mockResolvedValue(createdUser);
+      uuidv4Mock.mockReturnValue('new-uuid');
+      createJwtMock.mockImplementation(
+        (payload: CreateJwtPayload, options: CreateJwtOptions) =>
+          `${options.subject}-token-${payload.uuid || payload.id}`
+      );
+
+      const result = await service.refresh({ refreshToken: 'token' });
+
+      expect(result).toEqual({
+        accessToken: 'ACCESS_TOKEN-token-1',
+        refreshToken: 'REFRESH_TOKEN-token-old-uuid'
+      });
+      expect(userRepository.updateRefreshUuid).toHaveBeenCalledWith(
+        1,
+        'new-uuid'
+      );
     });
   });
 });

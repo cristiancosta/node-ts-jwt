@@ -15,7 +15,8 @@ describe('User', () => {
       getUserById: jest.fn(),
       getUserByUsername: jest.fn(),
       createUser: jest.fn(),
-      updateRefreshUuid: jest.fn()
+      updateRefreshUuid: jest.fn(),
+      getUserByIdAndRefreshUuid: jest.fn()
     };
     service = userService(userRepository);
   });

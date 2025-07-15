@@ -31,8 +31,15 @@ export const authController = (dataSource: DataSource): AuthController => {
     res.send(result);
   };
 
+  const refresh = async (req: Request, res: Response): Promise<void> => {
+    const { refreshToken } = req.body as { refreshToken: string };
+    const result = await service.refresh({ refreshToken });
+    res.send(result);
+  };
+
   return {
     signIn,
-    signUp
+    signUp,
+    refresh
   };
 };

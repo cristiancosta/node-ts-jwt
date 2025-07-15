@@ -3,11 +3,13 @@ import { Request, Response } from 'express';
 export type AuthService = {
   signIn: (signUpDto: SignInInputDto) => Promise<SignInOutputDto>;
   signUp: (signUpDto: SignUpInputDto) => Promise<SignUpOutputDto>;
+  refresh: (refreshDto: RefreshInputDto) => Promise<SignInOutputDto>;
 };
 
 export type AuthController = {
   signIn: (req: Request, res: Response) => Promise<void>;
   signUp: (req: Request, res: Response) => Promise<void>;
+  refresh: (req: Request, res: Response) => Promise<void>;
 };
 
 export type SignInInputDto = {
@@ -30,4 +32,8 @@ export type SignUpOutputDto = {
   username: string;
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type RefreshInputDto = {
+  refreshToken: string;
 };
