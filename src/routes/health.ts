@@ -23,7 +23,7 @@ export const healthRoutes = (dataSource: DataSource): Router => {
    *        content:
    *          application/json:
    *            schema:
-   *              $ref: '#/components/schemas/HealthResponse'
+   *              $ref: '#/components/schemas/GetHealthInfoResponse'
    */
   router.get('/', controller.getHealthInfo);
 
@@ -34,7 +34,7 @@ export const healthRoutes = (dataSource: DataSource): Router => {
  * @swagger
  * components:
  *  schemas:
- *    HealthResponse:
+ *    GetHealthInfoResponse:
  *      type: object
  *      properties:
  *        status:

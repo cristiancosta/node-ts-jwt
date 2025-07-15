@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-export type HealthResponse = {
+export type GetHealthInfoResponse = {
   status: 'healthy';
   dependencies: {
     database: 'connected' | 'not-connected';

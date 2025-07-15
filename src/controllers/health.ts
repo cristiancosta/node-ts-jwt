@@ -2,11 +2,11 @@ import { DataSource } from 'typeorm';
 import { Request, Response } from 'express';
 
 // Types.
-import { HealthController, HealthResponse } from '../types/health';
+import { HealthController, GetHealthInfoResponse } from '../types/health';
 
 export const healthController = (dataSource: DataSource): HealthController => {
   const getHealthInfo = async (req: Request, res: Response): Promise<void> => {
-    const result: HealthResponse = {
+    const result: GetHealthInfoResponse = {
       status: 'healthy',
       dependencies: {
         database: 'connected'

@@ -158,11 +158,4 @@ export const authRoutes = (dataSource: DataSource): Router => {
  *          type: string
  *          description: Error message
  *          example: USER_ALREADY_EXIST
- *    UserNotFoundResponse:
- *      type: object
- *      properties:
- *        message:
- *          type: string
- *          description: Error message
- *          example: USER_NOT_FOUND
  */
