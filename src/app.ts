@@ -1,6 +1,5 @@
 import 'express-async-errors';
 import express, { Express } from 'express';
-import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
 import { DataSource } from 'typeorm';
 
@@ -17,7 +16,7 @@ import { swaggerDoc } from './swagger';
 export const createExpressApp = (dataSource: DataSource): Express => {
   const app = express();
 
-  app.use(bodyParser.json());
+  app.use(express.json());
   app.use(
     '/api-docs',
     swaggerBasicAuth,
