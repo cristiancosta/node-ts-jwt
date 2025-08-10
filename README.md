@@ -164,7 +164,7 @@ npx lint-staged  # Runs ESLint + Prettier
 
 ## ⚙️ GitHub Actions CI
 
-The project runs automated tests and perform building process on Node.js 18.x, 20.x and 22.x via GitHub Actions.
+The project runs automated tests and perform building process on Node.js 20.x and 22.x via GitHub Actions.
 
 ---
 
