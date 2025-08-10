@@ -7,9 +7,6 @@ import { GetHealthInfoResponse } from '../../src/types/health';
 // Setup.
 import { buildResources, teardownResources } from './setup';
 
-// Constants.
-import { httpStatusCode } from '../../src/constants/http-status-code';
-
 describe('Health', () => {
   let context: TestContext;
 
@@ -28,7 +25,7 @@ describe('Health', () => {
       const response = await request(context.app).get('/health');
       const body = response.body as GetHealthInfoResponse;
 
-      expect(response.status).toBe(httpStatusCode.OK);
+      expect(response.status).toBe(200);
       expect(body).toHaveProperty('status');
       expect(body).toHaveProperty('dependencies');
       expect(body.dependencies).toHaveProperty('database');
@@ -41,7 +38,7 @@ describe('Health', () => {
       const response = await request(context.app).get('/health');
       const body = response.body as GetHealthInfoResponse;
 
-      expect(response.status).toBe(httpStatusCode.OK);
+      expect(response.status).toBe(200);
       expect(body).toHaveProperty('status');
       expect(body).toHaveProperty('dependencies');
       expect(body.dependencies).toHaveProperty('database');

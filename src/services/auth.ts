@@ -1,9 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { compareSync, hashSync } from 'bcryptjs';
 
-// Constants.
-import { errorMessage } from '../constants/error-message';
-
 // Errors.
 import { BadRequestError } from '../errors/bad-request';
 import { ConflictError } from '../errors/conflict';
@@ -32,11 +29,11 @@ export const authService = (userRepository: UserRepository): AuthService => {
     const { username, password } = signInDto;
     const user = await userRepository.getUserByUsername(username.trim());
     if (!user) {
-      throw new NotFoundError(errorMessage.USER_NOT_FOUND);
+      throw new NotFoundError('USER_NOT_FOUND');
     }
     const isValidPassword = compareSync(password.trim(), user.password);
     if (!isValidPassword) {
-      throw new BadRequestError(errorMessage.INVALID_CREDENTIALS);
+      throw new BadRequestError('INVALID_CREDENTIALS');
     }
     const accessToken = createJwt({ id: user.id }, { subject: 'ACCESS_TOKEN' });
     const uuid = uuidv4();
@@ -54,7 +51,7 @@ export const authService = (userRepository: UserRepository): AuthService => {
     const { username, password } = signUpDto;
     const user = await userRepository.getUserByUsername(username.trim());
     if (user) {
-      throw new ConflictError(errorMessage.USER_ALREADY_EXIST);
+      throw new ConflictError('USER_ALREADY_EXIST');
     }
     const hashedPassword = hashSync(password.trim());
     const createdUser = await userRepository.createUser({
@@ -76,7 +73,7 @@ export const authService = (userRepository: UserRepository): AuthService => {
     const { id, uuid } = verifyJwt(refreshToken, { subject: 'REFRESH_TOKEN' });
     const user = await userRepository.getUserByIdAndRefreshUuid(id, uuid!);
     if (!user) {
-      throw new UnauthorizedError(errorMessage.INVALID_USER_TOKEN);
+      throw new UnauthorizedError('INVALID_USER_TOKEN');
     }
     const newAccessToken = createJwt(
       { id: user.id },

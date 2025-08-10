@@ -1,10 +1,6 @@
 import request from 'supertest';
 import { Repository } from 'typeorm';
 
-// Constants.
-import { errorMessage } from '../../src/constants/error-message';
-import { httpStatusCode } from '../../src/constants/http-status-code';
-
 // Models.
 import { User } from '../../src/models/user';
 
@@ -55,9 +51,9 @@ describe('User', () => {
         .get('/user/2')
         .set('authorization', `Bearer ${accessToken}`);
 
-      expect(response.status).toBe(httpStatusCode.NOT_FOUND);
+      expect(response.status).toBe(404);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.message).toBe(errorMessage.USER_NOT_FOUND);
+      expect(response.body.message).toBe('USER_NOT_FOUND');
     });
 
     it('Should return 200 status code and user information', async () => {
@@ -65,7 +61,7 @@ describe('User', () => {
         .get('/user/1')
         .set('authorization', `Bearer ${accessToken}`);
 
-      expect(response.status).toBe(httpStatusCode.OK);
+      expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('id');
       expect(response.body).toHaveProperty('username');
       expect(response.body).toHaveProperty('createdAt');

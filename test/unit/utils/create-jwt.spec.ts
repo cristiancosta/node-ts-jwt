@@ -1,8 +1,5 @@
 import { sign } from 'jsonwebtoken';
 
-// Constants.
-import { errorMessage } from '../../../src/constants/error-message';
-
 // Errors.
 import { ConflictError } from '../../../src/errors/conflict';
 
@@ -70,7 +67,7 @@ describe('createJwt', () => {
 
     // @ts-expect-error for testing invalid input
     expect(() => createJwt(payload, { subject: 'INVALID' })).toThrow(
-      errorMessage.INVALID_TOKEN_SUBJECT
+      'INVALID_TOKEN_SUBJECT'
     );
 
     expect(sign).not.toHaveBeenCalled();

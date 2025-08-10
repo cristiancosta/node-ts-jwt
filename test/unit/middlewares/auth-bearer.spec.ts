@@ -1,8 +1,5 @@
 import { Request, Response } from 'express';
 
-// Constants.
-import { errorMessage } from '../../../src/constants/error-message';
-
 // Errors.
 import { UnauthorizedError } from '../../../src/errors/unauthorized';
 import { ConflictError } from '../../../src/errors/conflict';
@@ -34,7 +31,7 @@ describe('authBearer', () => {
     const req = createMockReq(undefined);
     expect(() => authBearer(req, res, next)).toThrow(UnauthorizedError);
     expect(() => authBearer(req, res, next)).toThrow(
-      errorMessage.MISSING_AUTHORIZATION_HEADER
+      'MISSING_AUTHORIZATION_HEADER'
     );
     expect(next).not.toHaveBeenCalled();
   });
@@ -43,7 +40,7 @@ describe('authBearer', () => {
     const req = createMockReq('');
     expect(() => authBearer(req, res, next)).toThrow(UnauthorizedError);
     expect(() => authBearer(req, res, next)).toThrow(
-      errorMessage.MISSING_AUTHORIZATION_HEADER_VALUE
+      'MISSING_AUTHORIZATION_HEADER_VALUE'
     );
     expect(next).not.toHaveBeenCalled();
   });
@@ -52,7 +49,7 @@ describe('authBearer', () => {
     const req = createMockReq('Token abc.def.ghi');
     expect(() => authBearer(req, res, next)).toThrow(ConflictError);
     expect(() => authBearer(req, res, next)).toThrow(
-      errorMessage.INVALID_AUTHORIZATION_PREFIX
+      'INVALID_AUTHORIZATION_PREFIX'
     );
     expect(next).not.toHaveBeenCalled();
   });

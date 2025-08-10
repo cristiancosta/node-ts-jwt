@@ -1,8 +1,5 @@
 import { DataSource, Like } from 'typeorm';
 
-// Constants.
-import { errorMessage } from '../constants/error-message';
-
 // Errors.
 import { InternalServerError } from '../errors/internal-server';
 
@@ -26,7 +23,7 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
       return result;
     } catch (error) {
       console.error('getUserByUsername#error', error);
-      throw new InternalServerError(errorMessage.USER_RETRIEVAL_FAILURE);
+      throw new InternalServerError('USER_RETRIEVAL_FAILURE');
     }
   };
 
@@ -37,7 +34,7 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
       return result;
     } catch (error) {
       console.error('getUserById#error', error);
-      throw new InternalServerError(errorMessage.USER_RETRIEVAL_FAILURE);
+      throw new InternalServerError('USER_RETRIEVAL_FAILURE');
     }
   };
 
@@ -48,7 +45,7 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
       return mapUserModelToUserDto(user);
     } catch (error) {
       console.error('createUser#error', error);
-      throw new InternalServerError(errorMessage.USER_CREATION_FAILURE);
+      throw new InternalServerError('USER_CREATION_FAILURE');
     }
   };
 
@@ -64,7 +61,7 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
       return result;
     } catch (error) {
       console.error('getUserByIdAndRefreshUuid#error', error);
-      throw new InternalServerError(errorMessage.USER_RETRIEVAL_FAILURE);
+      throw new InternalServerError('USER_RETRIEVAL_FAILURE');
     }
   };
 
@@ -73,7 +70,7 @@ export const userRepository = (dataSource: DataSource): UserRepository => {
       await repository.update(id, { refresh_uuid: uuid });
     } catch (error) {
       console.error('updateRefreshUuid#error', error);
-      throw new InternalServerError(errorMessage.USER_UPDATE_FAILURE);
+      throw new InternalServerError('USER_UPDATE_FAILURE');
     }
   };
 

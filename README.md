@@ -42,7 +42,6 @@ Features include:
 ├── .husky/
 ├── .vscode/                # Debuggers and workspace configuration.
 ├── src/
-|   ├── constants/          # HTTP codes, error messages, table/model names.
 |   ├── controllers/        # Endpoint logic.
 |   ├── errors/             # Custom error classes.
 |   ├── middlewares/        # Auth, error handling, swagger auth.

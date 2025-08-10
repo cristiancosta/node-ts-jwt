@@ -4,10 +4,6 @@ import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { hashSync, compareSync } from 'bcryptjs';
 
-// Constants.
-import { errorMessage } from '../../src/constants/error-message';
-import { httpStatusCode } from '../../src/constants/http-status-code';
-
 // Configuration.
 import { configuration } from '../../src/configuration';
 
@@ -59,9 +55,9 @@ describe('Auth', () => {
         .post('/auth/sign-in')
         .send({ username: 'nouser', password: 'Abcdef1!' });
 
-      expect(response.status).toBe(httpStatusCode.NOT_FOUND);
+      expect(response.status).toBe(404);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.message).toBe(errorMessage.USER_NOT_FOUND);
+      expect(response.body.message).toBe('USER_NOT_FOUND');
     });
 
     it('Should return 400 status code and INVALID_CREDENTIALS message if credentials are not valid', async () => {
@@ -69,9 +65,9 @@ describe('Auth', () => {
         .post('/auth/sign-in')
         .send({ username: 'testuser', password: 'Abcdef1!' });
 
-      expect(response.status).toBe(httpStatusCode.BAD_REQUEST);
+      expect(response.status).toBe(400);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.message).toBe(errorMessage.INVALID_CREDENTIALS);
+      expect(response.body.message).toBe('INVALID_CREDENTIALS');
     });
 
     it('Should return 200 status code and tokens if user exist and credentials are valid', async () => {
@@ -81,7 +77,7 @@ describe('Auth', () => {
         .post('/auth/sign-in')
         .send({ username, password });
 
-      expect(response.status).toBe(httpStatusCode.OK);
+      expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('accessToken');
       expect(response.body).toHaveProperty('refreshToken');
 
@@ -122,9 +118,9 @@ describe('Auth', () => {
         .post('/auth/sign-up')
         .send({ username: 'testuser', password: 'Abcdef1!' });
 
-      expect(response.status).toBe(httpStatusCode.CONFLICT);
+      expect(response.status).toBe(409);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.message).toBe(errorMessage.USER_ALREADY_EXIST);
+      expect(response.body.message).toBe('USER_ALREADY_EXIST');
     });
 
     it('Should return 200 status code and created user data', async () => {
@@ -134,7 +130,7 @@ describe('Auth', () => {
         .post('/auth/sign-up')
         .send({ username, password });
 
-      expect(response.status).toBe(httpStatusCode.OK);
+      expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('id');
       expect(response.body).toHaveProperty('username');
       expect(response.body).toHaveProperty('createdAt');
@@ -178,9 +174,9 @@ describe('Auth', () => {
         .post('/auth/refresh')
         .send({ refreshToken });
 
-      expect(response.status).toBe(httpStatusCode.UNAUTHORIZED);
+      expect(response.status).toBe(401);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.message).toBe(errorMessage.TOKEN_EXPIRED);
+      expect(response.body.message).toBe('TOKEN_EXPIRED');
     });
 
     it('Should return 401 status code and INVALID_TOKEN message if refresh token is invalid', async () => {
@@ -196,9 +192,9 @@ describe('Auth', () => {
         .post('/auth/refresh')
         .send({ refreshToken });
 
-      expect(response.status).toBe(httpStatusCode.UNAUTHORIZED);
+      expect(response.status).toBe(401);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.message).toBe(errorMessage.INVALID_TOKEN);
+      expect(response.body.message).toBe('INVALID_TOKEN');
     });
 
     it('Should return 401 status code and INVALID_TOKEN message if refresh token has invalid subject', async () => {
@@ -209,9 +205,9 @@ describe('Auth', () => {
         .post('/auth/refresh')
         .send({ refreshToken: accessToken });
 
-      expect(response.status).toBe(httpStatusCode.UNAUTHORIZED);
+      expect(response.status).toBe(401);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.message).toBe(errorMessage.INVALID_TOKEN);
+      expect(response.body.message).toBe('INVALID_TOKEN');
     });
 
     it('Should return 401 status code and INVALID_USER_TOKEN message if refresh token does not belong to user', async () => {
@@ -224,9 +220,9 @@ describe('Auth', () => {
         .post('/auth/refresh')
         .send({ refreshToken });
 
-      expect(response.status).toBe(httpStatusCode.UNAUTHORIZED);
+      expect(response.status).toBe(401);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.message).toBe(errorMessage.INVALID_USER_TOKEN);
+      expect(response.body.message).toBe('INVALID_USER_TOKEN');
     });
 
     it('Should return 200 status code and new tokens if refresh token has valid subject, valid content and user exist', async () => {
@@ -238,7 +234,7 @@ describe('Auth', () => {
         .post('/auth/refresh')
         .send({ refreshToken });
 
-      expect(response.status).toBe(httpStatusCode.OK);
+      expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('accessToken');
       expect(response.body).toHaveProperty('refreshToken');
       expect((response.body as SignInOutputDto).refreshToken).toEqual(

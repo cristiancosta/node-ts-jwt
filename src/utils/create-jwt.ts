@@ -1,8 +1,5 @@
 import { sign, SignOptions } from 'jsonwebtoken';
 
-// Constants.
-import { errorMessage } from '../constants/error-message';
-
 // Configuration.
 import { configuration } from '../configuration';
 
@@ -39,6 +36,6 @@ export const createJwt = (
       return refreshToken;
     }
     default:
-      throw new ConflictError(errorMessage.INVALID_TOKEN_SUBJECT);
+      throw new ConflictError('INVALID_TOKEN_SUBJECT');
   }
 };

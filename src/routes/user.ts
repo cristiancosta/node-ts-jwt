@@ -10,6 +10,8 @@ import { authBearer } from '../middlewares/auth-bearer';
 export const userRoutes = (dataSource: DataSource): Router => {
   const router = Router();
 
+  const controller = userController(dataSource);
+
   /**
    * @swagger
    * /user/{id}:
@@ -64,8 +66,6 @@ export const userRoutes = (dataSource: DataSource): Router => {
    *            schema:
    *              $ref: '#/components/schemas/InternalServerErrorResponse'
    */
-  const controller = userController(dataSource);
-
   router.get('/:id', authBearer, controller.getUser);
 
   return router;

@@ -1,6 +1,3 @@
-// Constants.
-import { errorMessage } from '../constants/error-message';
-
 // Errors.
 import { NotFoundError } from '../errors/not-found';
 
@@ -11,7 +8,7 @@ export const userService = (userRepository: UserRepository): UserService => {
   const getUser = async (id: number): Promise<GetUserOutputDto> => {
     const user = await userRepository.getUserById(id);
     if (!user) {
-      throw new NotFoundError(errorMessage.USER_NOT_FOUND);
+      throw new NotFoundError('USER_NOT_FOUND');
     }
     return {
       id: user.id,

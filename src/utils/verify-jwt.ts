@@ -1,8 +1,5 @@
 import { verify, TokenExpiredError, JsonWebTokenError } from 'jsonwebtoken';
 
-// Constants.
-import { errorMessage } from '../constants/error-message';
-
 // Configuration.
 import { configuration } from '../configuration';
 
@@ -27,12 +24,12 @@ export const verifyJwt = (
     }) as VerifyJwtPayload;
   } catch (error: unknown) {
     if (error instanceof TokenExpiredError) {
-      throw new UnauthorizedError(errorMessage.TOKEN_EXPIRED);
+      throw new UnauthorizedError('TOKEN_EXPIRED');
     } else if (error instanceof JsonWebTokenError) {
-      throw new UnauthorizedError(errorMessage.INVALID_TOKEN);
+      throw new UnauthorizedError('INVALID_TOKEN');
     } else {
       console.error('verifyJwt#error', error);
-      throw new InternalServerError(errorMessage.INTERNAL_SERVER_ERROR);
+      throw new InternalServerError('INTERNAL_SERVER_ERROR');
     }
   }
   return payload;
