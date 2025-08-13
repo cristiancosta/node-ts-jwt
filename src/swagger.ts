@@ -14,5 +14,5 @@ export const swaggerDoc = swaggerJSDoc({
       url: 'https://swagger.io/specification/v3/'
     }
   },
-  apis: [`${__dirname}/routes/**/**.ts`]
+  apis: [`${__dirname}/routes/**/**.{js,ts}`]
 });
